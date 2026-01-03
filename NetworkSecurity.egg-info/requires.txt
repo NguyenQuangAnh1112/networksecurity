@@ -3,5 +3,3 @@ pandas
 numpy
 pymondo
 certifi
-
--e .

@@ -1,11 +1,12 @@
 from setuptools import find_packages, setup
 from typing import List
 
+
 def get_requirements() -> List[str]:
     """
     This function will return list of requirements
     """
-    requirement_lst:List[str] = []
+    requirement_lst: List[str] = []
     try:
         with open("requirements.txt", "r") as f:
             lines = f.readlines()
@@ -15,14 +16,16 @@ def get_requirements() -> List[str]:
                     requirement_lst.append(requirement)
     except FileNotFoundError:
         print("requirements.txt file not found")
-    
+
     return requirement_lst
+
 
 setup(
     name="NetworkSecurity",
     version="0.0.1",
     author="Muggle",
     author_email="qnh11122006@gmail.com",
-    packages=get_requirements(),
-    install_requires=get_requirements()
+    packages=find_packages(),
+    install_requires=get_requirements(),
 )
+
