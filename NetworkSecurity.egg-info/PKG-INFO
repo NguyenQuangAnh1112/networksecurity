@@ -6,7 +6,7 @@ Author-email: qnh11122006@gmail.com
 Requires-Dist: python-dotenv
 Requires-Dist: pandas
 Requires-Dist: numpy
-Requires-Dist: pymondo
+Requires-Dist: pymongo[srv]==3.12
 Requires-Dist: certifi
 Dynamic: author
 Dynamic: author-email
