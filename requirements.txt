@@ -3,5 +3,7 @@ pandas
 numpy
 pymongo[srv]==3.12
 certifi
+dill
+pyaml
 
 -e .
