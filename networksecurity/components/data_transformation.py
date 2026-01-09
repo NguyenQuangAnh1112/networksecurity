@@ -119,9 +119,18 @@ class DataTransformation:
             )
 
             data_transformation_artifact = DataTransformationArtifact(
-                self.data_transformation_config.data_transformation_transformed_object_dir,
-                self.data_transformation_config.data_transformation_transformed_data_dir,
-                self.data_transformation_config.data_transformation_transformed_data_dir,
+                transformed_object_file_path=os.path.join(
+                    self.data_transformation_config.data_transformation_transformed_object_dir,
+                    "preprocessor.pkl",
+                ),
+                transformed_train_file_path=os.path.join(
+                    self.data_transformation_config.data_transformation_transformed_data_dir,
+                    "train.npy",
+                ),
+                transformed_test_file_path=os.path.join(
+                    self.data_transformation_config.data_transformation_transformed_data_dir,
+                    "test.npy",
+                ),
             )
             return data_transformation_artifact
 

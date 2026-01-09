@@ -1,0 +1,22 @@
+[2026-01-09 16:07:02,509] 24 root - INFO - Initiate the data ingestion
+[2026-01-09 16:07:07,817] 83 root - INFO - Performed train test split on the dataframe
+[2026-01-09 16:07:07,817] 85 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[2026-01-09 16:07:07,817] 91 root - INFO - Exporting train and test file path
+[2026-01-09 16:07:07,880] 96 root - INFO - Exported train and test file path.
+[2026-01-09 16:07:07,880] 26 root - INFO - Data Initiate Completed
+[2026-01-09 16:07:07,884] 21 root - INFO - yaml file: data_schema/schema.yaml loaded successfully
+[2026-01-09 16:07:07,884] 32 root - INFO - Initiate the data validation
+[2026-01-09 16:07:07,900] 60 root - INFO - Required number of columns: 2
+[2026-01-09 16:07:07,900] 61 root - INFO - Data Frame len columns: 31
+[2026-01-09 16:07:07,900] 133 root - ERROR - Train dataframe does not contain all columns.
+
+[2026-01-09 16:07:07,900] 60 root - INFO - Required number of columns: 2
+[2026-01-09 16:07:07,900] 61 root - INFO - Data Frame len columns: 31
+[2026-01-09 16:07:07,900] 138 root - ERROR - Test dataframe does not contain all columns.
+
+[2026-01-09 16:07:08,056] 182 root - WARNING - Data validation failed due to drift. Data saved to invalid directory.
+[2026-01-09 16:07:08,056] 196 root - INFO - Data validation artifact: DataValidationArtifact(validation_status=False, valid_train_file_path='Artifacts/data_validation/validated/train.csv', valid_test_file_path='Artifacts/data_validation/validated/test.csv', invalid_train_file_path='Artifacts/data_validation/invalid/train.csv', invalid_test_file_path='Artifacts/data_validation/invalid/test.csv', drift_report_file_path='Artifacts/data_validation/drift_report/report.yaml')
+[2026-01-09 16:07:08,057] 34 root - INFO - Data Validation Completed
+[2026-01-09 16:07:08,057] 40 root - INFO - Initiate the data transfomation
+[2026-01-09 16:07:08,057] 58 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[2026-01-09 16:07:08,057] 62 root - INFO - Starting data transformation

@@ -1,5 +1,6 @@
-from datetime import datetime
 import os
+from datetime import datetime
+
 from networksecurity.constant import training_pipeline
 
 
@@ -102,4 +103,28 @@ class DataTransformationConfig:
 
         self.data_transformation_imputer_params: dict = (
             training_pipeline.DATA_TRANSFORMATION_IMPUTER_PARAMS
+        )
+
+
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.model_trainer_dir: str = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline.MODEL_TRAINER_DIR_NAME,
+        )
+
+        self.model_trainer_trained_model_dir: str = os.path.join(
+            self.model_trainer_dir, training_pipeline.MODEL_TRAINER_TRAINED_MODEL_DIR
+        )
+
+        self.model_trainer_trained_model_name: str = os.path.join(
+            self.model_trainer_dir, training_pipeline.MODEL_TRAINER_TRAINED_MODEL_NAME
+        )
+
+        self.model_trainer_expected_score: float = (
+            training_pipeline.MODEL_TRAINER_EXPECTED_SCORE
+        )
+
+        self.model_trainer_over_fitting_under_fitting_threshould: float = (
+            training_pipeline.MODEL_TRAINER_OVER_FITTING_UNDER_FITTING_THRESHOULD
         )

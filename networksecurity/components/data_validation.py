@@ -161,18 +161,18 @@ class DataValidation:
             os.makedirs(self.data_validation_config.valid_data_dir, exist_ok=True)
             os.makedirs(self.data_validation_config.invalid_data_dir, exist_ok=True)
 
-            # save valid/invalid files based on validation status
+            # Always save to valid directory so pipeline can continue
+            train_dataframe.to_csv(
+                self.data_validation_config.valid_train_file_path, index=False
+            )
+            test_dataframe.to_csv(
+                self.data_validation_config.valid_test_file_path, index=False
+            )
+            
             if validation_status:
-                # data is valid - save to valid directory
-                train_dataframe.to_csv(
-                    self.data_validation_config.valid_train_file_path, index=False
-                )
-                test_dataframe.to_csv(
-                    self.data_validation_config.valid_test_file_path, index=False
-                )
                 logger.info("Data validation passed. Data saved to valid directory.")
             else:
-                # data has drift - save to invalid directory
+                # Also save to invalid directory for tracking drift issues
                 train_dataframe.to_csv(
                     self.data_validation_config.invalid_train_file_path, index=False
                 )
@@ -180,7 +180,7 @@ class DataValidation:
                     self.data_validation_config.invalid_test_file_path, index=False
                 )
                 logger.warning(
-                    "Data validation failed due to drift. Data saved to invalid directory."
+                    "Data drift detected! Data saved to both valid and invalid directories."
                 )
 
             # create and return DataValidationArtifact
