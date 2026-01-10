@@ -1,6 +1,7 @@
 import os
 import sys
 
+import mlflow
 from sklearn.ensemble import (
     AdaBoostClassifier,
     GradientBoostingClassifier,
@@ -39,6 +40,17 @@ class ModelTrainer:
             self.model_trainer_config = model_trainer_config
         except Exception as e:
             raise NetworkSecurityException(e, sys)
+
+    def track_mlflow(self, best_model, classificationmetric):
+        with mlflow.start_run():
+            f1_score = classificationmetric.f1_score
+            model_precision_score = classificationmetric.precision_score
+            model_recall_score = classificationmetric.recall_score
+
+            mlflow.log_metric("f1_score", f1_score)
+            mlflow.log_metric("precision_score", model_precision_score)
+            mlflow.log_metric("recall_score", model_recall_score)
+            mlflow.sklearn.log_model(best_model, "model")
 
     def train_model(self, X_train, y_train, X_test, y_test):
         try:
@@ -89,8 +101,13 @@ class ModelTrainer:
                 y_train, y_train_pred
             )
 
+            # Track the experiements with mlflow
+            self.track_mlflow(best_model, classification_train_metric)
+
             y_test_pred = best_model.predict(X_test)
             classification_test_metric = get_classification_score(y_test, y_test_pred)
+
+            self.track_mlflow(best_model, classification_test_metric)
 
             preprocessor = load_object(
                 self.data_transformation_artifact.transformed_object_file_path

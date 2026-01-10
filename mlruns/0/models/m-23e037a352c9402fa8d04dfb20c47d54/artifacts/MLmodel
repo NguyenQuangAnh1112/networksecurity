@@ -1,0 +1,22 @@
+artifact_path: /home/muggle/hlt/py/ds/cmpmlops/NetworkSecurity/mlruns/0/models/m-23e037a352c9402fa8d04dfb20c47d54/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.14
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.7.0
+model_id: m-23e037a352c9402fa8d04dfb20c47d54
+model_size_bytes: 27650881
+model_uuid: m-23e037a352c9402fa8d04dfb20c47d54
+prompts: null
+run_id: 455a1de4150240898a9d3e51b52c23bf
+utc_time_created: '2026-01-10 02:49:03.457040'
