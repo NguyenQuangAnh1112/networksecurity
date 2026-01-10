@@ -1,6 +1,7 @@
 import os
 import sys
 
+import dagshub
 import mlflow
 from sklearn.ensemble import (
     AdaBoostClassifier,
@@ -27,6 +28,8 @@ from networksecurity.utils.ml_utils.metric.classification_metric import (
     get_classification_score,
 )
 from networksecurity.utils.ml_utils.model.estimator import NetworkModel
+
+dagshub.init(repo_owner="Muggle", repo_name="networksecurity", mlflow=True)
 
 
 class ModelTrainer:

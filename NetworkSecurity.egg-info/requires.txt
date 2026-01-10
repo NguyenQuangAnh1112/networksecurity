@@ -8,3 +8,4 @@ dill
 pyaml
 scikit-learn
 mlflow
+dagshub
