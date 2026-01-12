@@ -3,6 +3,7 @@ import sys
 
 import dagshub
 import mlflow
+from mlflow.sklearn import log_model
 from sklearn.ensemble import (
     AdaBoostClassifier,
     GradientBoostingClassifier,
@@ -29,7 +30,6 @@ from networksecurity.utils.ml_utils.metric.classification_metric import (
 )
 from networksecurity.utils.ml_utils.model.estimator import NetworkModel
 
-dagshub.init(repo_owner="Muggle", repo_name="networksecurity", mlflow=True)
 
 
 class ModelTrainer:
@@ -45,6 +45,10 @@ class ModelTrainer:
             raise NetworkSecurityException(e, sys)
 
     def track_mlflow(self, best_model, classificationmetric):
+        # Setup MLflow with DagsHub (only when tracking is called)
+        dagshub.init(repo_owner="Muggle", repo_name="networksecurity", mlflow=True)
+        mlflow.set_experiment("ModelTraining")
+        
         with mlflow.start_run():
             f1_score = classificationmetric.f1_score
             model_precision_score = classificationmetric.precision_score
@@ -53,7 +57,7 @@ class ModelTrainer:
             mlflow.log_metric("f1_score", f1_score)
             mlflow.log_metric("precision_score", model_precision_score)
             mlflow.log_metric("recall_score", model_recall_score)
-            mlflow.sklearn.log_model(best_model, "model")
+            log_model(best_model, "model")
 
     def train_model(self, X_train, y_train, X_test, y_test):
         try:
@@ -96,7 +100,7 @@ class ModelTrainer:
             )
 
             best_model_name = max(model_report, key=model_report.__getitem__)
-            best_model_score = model_report[best_model_name]
+            # best_model_score = model_report[best_model_name]
             best_model = trained_models[best_model_name]
 
             y_train_pred = best_model.predict(X_train)
@@ -117,22 +121,21 @@ class ModelTrainer:
             )
 
             model_dir_name = os.path.dirname(
-                self.model_trainer_config.model_trainer_trained_model_dir
+                self.model_trainer_config.model_trainer_trained_model_name
             )
             os.makedirs(model_dir_name, exist_ok=True)
 
             network_model = NetworkModel(preprocessor, best_model)
             save_object(
-                os.path.join(
-                    self.model_trainer_config.model_trainer_trained_model_dir,
-                    "model.pkl",
-                ),
+                self.model_trainer_config.model_trainer_trained_model_name,
                 network_model,
             )
 
+            save_object("final_model/model.pkl", best_model)
+
             # model trainer artifact
             model_trainer_artifact = ModelTrainerArtifact(
-                self.model_trainer_config.model_trainer_trained_model_dir,
+                self.model_trainer_config.model_trainer_trained_model_name,
                 classification_test_metric,
                 classification_train_metric,
             )

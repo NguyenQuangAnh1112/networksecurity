@@ -9,3 +9,5 @@ pyaml
 scikit-learn
 mlflow
 dagshub
+fastapi
+uvicorn
