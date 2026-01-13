@@ -1,9 +1,9 @@
-import os
 import sys
 
-from networksecurity.constant.training_pipeline import MODEL_FILE_NAME, SAVE_MODEL_DIR
+# from networksecurity.constant.training_pipeline import MODEL_FILE_NAME, SAVE_MODEL_DIR
 from networksecurity.exception.exception import NetworkSecurityException
-from networksecurity.logging.logger import logger
+
+# from networksecurity.logging.logger import logger
 
 
 class NetworkModel:
